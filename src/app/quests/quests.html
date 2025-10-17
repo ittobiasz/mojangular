@@ -1,0 +1,26 @@
+<h2>Aktuálny počet questov: {{ questsService.quests().length }}</h2>
+
+<button (click)="questsService.addQuest()" 
+        style="margin-bottom: 1rem; padding: 0.5rem 1rem; background:#ff4d6d; color:white; border:none; border-radius:5px;">
+  ➕ Pridať nový quest
+</button>
+
+<ul>
+  <li *ngFor="let quest of questsService.quests(); let i = index" 
+      style="position: relative; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;">
+    
+    <a [routerLink]="['/quests', quest.id]" style="text-decoration:none; color:inherit;">
+      <h3>{{ i + 1 }}. {{ quest.title }}</h3>
+      <p>{{ quest.description }}</p>
+      <p><strong>XP:</strong> {{ quest.xp }}
+        <span *ngIf="quest.xp > 100" style="color: red; font-weight: bold;"> - MEGA XP!</span>
+        <span *ngIf="quest.xp > 50 && quest.xp <= 100" style="color: green; font-weight: bold;"> - SUPER XP!</span>
+      </p>
+    </a>
+
+    <button (click)="questsService.deleteQuest(quest.id)" 
+            style="position: absolute; right: 10px; top: 10px; background:rgb(197, 0, 237); height: 30px; width: 30px; color: white; font-weight: bold;">
+      ×
+    </button>
+  </li>
+</ul>
