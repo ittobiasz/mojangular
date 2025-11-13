@@ -1,0 +1,28 @@
+<div *ngIf="player" class="player-detail panel">
+  <div class="detail-header">
+    <button class="btn btn-outline" (click)="back()">← Späť</button>
+  </div>
+
+  <div class="detail-body">
+    <img *ngIf="player.avatarUrl" [src]="player.avatarUrl" alt="{{ player.nickname }}" class="avatar">
+    <h2 class="center">{{ player.nickname }}</h2>
+    <p class="center">Úroveň {{ player.level }}</p>
+
+    <p class="center">
+      Klan:
+      <a *ngIf="player.clanId" [routerLink]="['/clans', player.clanId]">{{ clanName }}</a>
+      <span *ngIf="!player.clanId">—</span>
+    </p>
+
+    <h3 class="center">Questy:</h3>
+    <ul>
+      <li *ngFor="let quest of quests">
+        <a [routerLink]="['/quests', quest?.id]">{{ quest?.title }}</a>
+      </li>
+    </ul>
+
+    <div class="detail-actions center">
+      <button class="btn danger" (click)="remove()">Odstrániť hráča</button>
+    </div>
+  </div>
+</div>

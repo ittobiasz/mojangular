@@ -1,0 +1,40 @@
+<div class="clans-container page">
+  <div class="content panel">
+    <h2>🏰 Klany</h2>
+
+    <button class="add-btn btn" (click)="toggleForm()">{{ formShown ? 'Zrušiť' : '+ Pridať klan' }}</button>
+
+  <div class="add-form" *ngIf="formShown">
+    <label>
+      Názov
+      <input type="text" [(ngModel)]="newName" placeholder="Názov klanu">
+    </label>
+    <label>
+      Popis
+      <input type="text" [(ngModel)]="newDescription" placeholder="Krátky popis">
+    </label>
+    <label>
+      Kapacita
+      <input type="number" [(ngModel)]="newCapacity" min="1">
+    </label>
+    <label>
+    
+    </label>
+    <div class="form-actions">
+      <button (click)="submitAddClan()" class="confirm">Vytvoriť klan</button>
+      <button (click)="toggleForm()" class="cancel">Zrušiť</button>
+    </div>
+  </div>
+
+  <div *ngFor="let clan of clans()" class="clan-card">
+    <h3><a [routerLink]="['/clans', clan.id]">{{ clan.name }}</a></h3>
+  <p>{{ clan.description }}</p>
+  <p>Kapacita: {{ clan.members.length }}/{{ clan.capacity }}</p>
+  <p>Členovia: {{ clan.members.length }}</p>
+    <img *ngIf="clan.avatarUrl" [src]="clan.avatarUrl" alt="{{ clan.name }}" width="100">
+    <div class="card-actions">
+      <button (click)="removeClan(clan)" class="danger">Odstrániť klan</button>
+    </div>
+  </div>
+    </div>
+  </div>

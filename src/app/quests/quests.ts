@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { QuestsService } from './quest.service';
-import { Quest } from './quest-interface';
+import { Quest } from './quest-interface';      
 
 @Component({
   selector: 'app-quests',

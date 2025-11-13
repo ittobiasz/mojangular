@@ -1,0 +1,23 @@
+<div *ngIf="clan" class="clan-detail panel">
+  <div class="detail-header">
+    <button class="btn btn-outline" (click)="back()">← Späť</button>
+  </div>
+
+  <div class="detail-body">
+    <h2 class="center">{{ clan.name }}</h2>
+    <p class="center">{{ clan.description }}</p>
+    <p class="center">Kapacita: {{ clan.members.length }}/{{ clan.capacity }}</p>
+
+    <h3 class="center">Členovia</h3>
+    <ul>
+      <li *ngFor="let id of clan.members">
+        <a [routerLink]="['/players', id]">{{ playerService.getById(id)?.nickname || ('Player #' + id) }}</a>
+        <button class="small" (click)="removeMember(id)">Remove</button>
+      </li>
+    </ul>
+
+    <div class="detail-actions center">
+      <button class="btn danger" (click)="removeClan()">Odstrániť klan</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+
+.clan-detail { max-width: 760px; margin: 2rem auto; padding: 1.2rem; border-radius: 12px; }
+.clan-detail .detail-header { display:flex; justify-content:flex-start; margin-bottom: 0.6rem; }
+.clan-detail .detail-body { text-align: center; }
+.clan-detail .avatar { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; border: 3px solid rgba(255,77,109,0.12); box-shadow: 0 8px 26px rgba(255,77,109,0.14); margin: 0 auto 0.6rem; }
+.clan-detail .center { text-align:center; }
+.clan-detail ul { list-style:none; margin:0.6rem 0; padding:0; }
+.clan-detail li { margin:0.25rem 0; }
+.detail-actions { margin-top: 0.8rem; }
+.danger { background: linear-gradient(180deg, #ff4d6d, #ff2a4a); }

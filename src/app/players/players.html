@@ -1,0 +1,59 @@
+<div class="players-container page">
+  <div class="content panel">
+    <h2>🎮 Hráči</h2>
+
+    <button class="add-btn btn" (click)="toggleForm()">{{ formShown ? 'Zrušiť' : '+ Pridať hráča' }}</button>
+
+  <div class="add-form" *ngIf="formShown">
+    <label>
+      Prezývka
+      <input type="text" [(ngModel)]="newNickname" placeholder="Zadaj prezývku">
+    </label>
+    <label>
+      Úroveň
+      <input type="number" [(ngModel)]="newLevel" min="1">
+    </label>
+    <label>
+    </label>
+
+    <div class="quest-choices">
+      <p>Priraď až 2 questy:</p>
+      <div *ngFor="let q of questsList()" class="quest-choice">
+        <label>
+          <input type="checkbox" [checked]="selectedQuests.includes(q.id)" (change)="toggleQuestSelection(q.id)"
+                 [disabled]="selectedQuests.length >= 2 && !selectedQuests.includes(q.id)">
+          {{ q.title }} ({{ q.xp }} XP)
+        </label>
+      </div>
+    </div>
+
+    <label>
+      Priradiť do klanu (voliteľné)
+      <select [(ngModel)]="selectedClanId">
+        <option [ngValue]="undefined">— bez klanu —</option>
+        <option *ngFor="let c of clans()" [ngValue]="c.id">{{ c.name }} ({{c.members.length}}/{{c.capacity}})</option>
+      </select>
+    </label>
+
+    <div class="form-actions">
+      <button (click)="submitAdd()" class="confirm">Vytvoriť hráča</button>
+      <button (click)="toggleForm()" class="cancel">Zrušiť</button>
+    </div>
+  </div>
+
+  <div *ngFor="let player of players()" class="player-card">
+    <h3><a [routerLink]="['/players', player.id]">{{ player.nickname }}</a></h3>
+    <p>Úroveň: {{ player.level }}</p>
+    <p *ngIf="player.quests?.length">Questy:
+      <span *ngFor="let qid of player.quests; let i = index">
+  {{ getQuestTitle(qid) }}<span *ngIf="isNotLastQuest(player, i)">, </span>
+      </span>
+    </p>
+  <p *ngIf="player.clanId">Klan: {{ getClanName(player.clanId) }}</p>
+    <img *ngIf="player.avatarUrl" [src]="player.avatarUrl" alt="{{ player.nickname }}" width="100">
+    <div class="card-actions">
+      <button (click)="removePlayer(player)" class="danger">Odstrániť hráča</button>
+    </div>
+  </div>
+    </div>
+  </div>

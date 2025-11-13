@@ -1,8 +1,11 @@
 <header class="app-header">
-  <h1>Quest overflow</h1>
+  <h1>Quest Overflow</h1>
 
-  <nav class="menu">
-    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Domov</a>
-    <a routerLink="/quests" routerLinkActive="active">questy</a>
-  </nav>
+<nav class="nav-bar">
+  <button routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="nav-btn">Domov</button>
+  <button routerLink="/quests" routerLinkActive="active" class="nav-btn">Questy</button>
+  <button routerLink="/players" routerLinkActive="active" class="nav-btn">Hráči</button>
+  <button routerLink="/clans" routerLinkActive="active" class="nav-btn">Klany</button>
+</nav>
+
 </header>
