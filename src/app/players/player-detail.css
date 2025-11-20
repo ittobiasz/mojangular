@@ -1,10 +1,33 @@
 
-.player-detail { max-width: 760px; margin: 2rem auto; padding: 1.2rem; border-radius: 12px; }
-.player-detail .detail-header { display:flex; justify-content:flex-start; margin-bottom: 0.6rem; }
-.player-detail .detail-body { text-align: center; }
-.player-detail .avatar { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; border: 3px solid rgba(255,77,109,0.12); box-shadow: 0 8px 26px rgba(255,77,109,0.14); margin: 0 auto 0.6rem; }
+.player-detail {
+	max-width: 980px;
+	margin: 2.4rem auto;
+	padding: 1.6rem;
+	border-radius: 14px;
+	background: linear-gradient(180deg, rgba(255,255,255,0.012), rgba(255,255,255,0.006));
+	border: 1px solid rgba(255,77,109,0.06);
+	box-shadow: 0 18px 48px rgba(0,0,0,0.45);
+}
+.player-detail .detail-header { display:flex; justify-content:flex-start; margin-bottom: 0.8rem; }
+.player-detail .detail-body { text-align: center; padding: 0 0.6rem; }
+.player-detail .avatar { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; border: 3px solid rgba(255,77,109,0.12); box-shadow: 0 10px 30px rgba(255,77,109,0.12); margin: 0 auto 0.8rem; }
 .player-detail .center { text-align:center; }
-.player-detail ul { list-style:none; margin:0.6rem 0; padding:0; }
-.player-detail li { margin:0.25rem 0; }
-.detail-actions { margin-top: 0.8rem; }
+.detail-actions { margin-top: 1rem; }
 .danger { background: linear-gradient(180deg, #ff4d6d, #ff2a4a); }
+
+.quests-columns { display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; margin-top:1.2rem; }
+.quests-column { flex:1 1 320px; min-width:260px; max-width:480px; background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005)); padding:1rem; border-radius:12px; border:1px solid rgba(255,77,109,0.04); box-shadow: 0 8px 28px rgba(0,0,0,0.32) inset; }
+.quests-column h3 { margin-top:0; font-size:1.05rem; color:#ffdfe6; letter-spacing:0.2px; }
+.quests-column .empty { color: rgba(255,255,255,0.6); font-style: italic; padding:0.4rem; }
+.btn.small { padding:0.35rem 0.6rem; border-radius:8px; font-size:0.9rem; }
+
+.player-detail .left-meta { color: rgba(255,255,255,0.78); font-size:0.95rem; margin-top:0.5rem; }
+
+.quest-item { display:flex; align-items:center; justify-content:space-between; gap:0.6rem; padding:0.55rem; border-radius:8px; transition: background .12s, transform .08s; }
+.quest-item:hover { background: rgba(255,77,109,0.02); transform: translateY(-2px); }
+.quest-item a { color: inherit; text-decoration: none; font-weight:600; }
+.quest-item .meta { color: rgba(255,255,255,0.78); font-size:0.95rem; }
+
+.progress { width: 100%; height: 10px; background: rgba(255,255,255,0.03); border-radius: 8px; overflow: hidden; margin-top: 6px; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, #ffd4dc, #ff7a95); width: 0%; transition: width .36s ease; }
+.detail-progress { max-width: 420px; margin: 0.6rem auto 0; }

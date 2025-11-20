@@ -1,8 +1,11 @@
 <div class="clans-container page">
   <div class="content panel">
-    <h2>🏰 Klany</h2>
+    <h2>Klany</h2>
 
-    <button class="add-btn btn" (click)="toggleForm()">{{ formShown ? 'Zrušiť' : '+ Pridať klan' }}</button>
+    <div class="toolbar" style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap;margin-bottom:0.6rem;">
+      <app-search [(value)]="searchTerm" placeholder="Hľadaj klan..."></app-search>
+      <button class="add-btn btn" (click)="toggleForm()">{{ formShown ? 'Zrušiť' : '+ Pridať klan' }}</button>
+    </div>
 
   <div class="add-form" *ngIf="formShown">
     <label>
@@ -26,7 +29,7 @@
     </div>
   </div>
 
-  <div *ngFor="let clan of clans()" class="clan-card">
+  <div *ngFor="let clan of getDisplayedClans()" class="clan-card">
     <h3><a [routerLink]="['/clans', clan.id]">{{ clan.name }}</a></h3>
   <p>{{ clan.description }}</p>
   <p>Kapacita: {{ clan.members.length }}/{{ clan.capacity }}</p>

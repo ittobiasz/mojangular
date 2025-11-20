@@ -19,11 +19,13 @@ export class ClanDetailComponent {
     this.clan = this.clanService.getById(id);
   }
 
+  // odstrani hraca z klanu a nastavi jeho clanId na undefined
   removeMember(playerId: number) {
     if (!this.clan) return;
     this.clanService.removeMember(this.clan.id, playerId);
     this.playerService.setClan(playerId, undefined);
   }
+  // odstrani clan a nastavi clanId na undefined u vsetkych jeho clenov
   removeClan() {
     if (!this.clan) return;
     
@@ -33,6 +35,7 @@ export class ClanDetailComponent {
     this.clanService.removeClan(this.clan.id);
   }
 
+  // presmeruje spat na zoznam clanov
   back() {
     this.router.navigate(['/clans']);
   }

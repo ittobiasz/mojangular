@@ -9,6 +9,7 @@ export class QuestsService {
     { id: 3, title: 'Majstrovstvo elixírov', description: 'Zlož vzácne ingrediencie a priprav mocný liečivý elixír.', xp: 60 },
   ]);
 
+  // prida novy quest do zoznamu
   addQuest() {
     const nextId = this.quests().length > 0 ? Math.max(...this.quests().map(q => q.id)) + 1 : 1;
     const newQuest: Quest = {
@@ -20,10 +21,12 @@ export class QuestsService {
     this.quests.update(qs => [...qs, newQuest]);
   }
 
+  // odstrani quest podla id
   deleteQuest(id: number) {
     this.quests.update(qs => qs.filter(q => q.id !== id));
   }
 
+  // ziska quest podla id
   getQuestById(id: number) {
     return this.quests().find(q => q.id === id);
   }

@@ -2,10 +2,13 @@
   <div class="content panel">
     <h2>Aktuálny počet questov: {{ questsService.quests().length }}</h2>
 
-    <button class="btn" (click)="questsService.addQuest()" style="margin-bottom:1rem;">➕ Pridať nový quest</button>
+    <div class="toolbar" style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap;margin-bottom:0.6rem;">
+      <app-search [(value)]="searchTerm" placeholder="Hľadaj quest..."></app-search>
+      <button class="btn" (click)="questsService.addQuest()" style="margin-bottom:1rem;"> + Pridať nový quest</button>
+    </div>
 
     <ul>
-      <li *ngFor="let quest of questsService.quests(); let i = index" class="quest-card">
+      <li *ngFor="let quest of getDisplayedQuests(); let i = index" class="quest-card">
         <a [routerLink]="['/quests', quest.id]" style="text-decoration:none; color:inherit; display:block;">
           <h3>{{ i + 1 }}. {{ quest.title }}</h3>
           <p>{{ quest.description }}</p>

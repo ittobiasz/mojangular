@@ -16,11 +16,13 @@ export class QuestDetail {
 
   constructor(private route: ActivatedRoute, private questsService: QuestsService, private router: Router) {}
 
+  // nacita quest podla id z route pri inicializacii komponentu
   ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.quest = this.questsService.getQuestById(id);
   }
 
+  // presmeruje spat na zoznam questov
   back() {
     this.router.navigate(['/quests']);
   }

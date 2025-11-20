@@ -1,8 +1,10 @@
 export interface Player {
   id: number;
   nickname: string;
-  level: number;
+  // xp miesto statickeho levelu; level sa vypocita z XP
+  xp?: number;
   clanId?: number;    
-  quests?: number[];  
+  quests?: number[];  // priradene, este nedokoncene
+  completedQuests?: number[]; // dokoncené questy
   avatarUrl?: string;
 }
