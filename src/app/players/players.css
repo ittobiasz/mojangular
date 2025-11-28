@@ -45,6 +45,23 @@
 .form-actions .confirm { background: linear-gradient(180deg, #ff4d6d, #ff2a4a); color: white; border: none; padding: 0.5rem 0.8rem; border-radius: 8px; }
 .form-actions .cancel { margin-left: 8px; }
 
-.danger { background: linear-gradient(180deg, #ff4d6d, #ff2a4a); color: white; border: none; padding: 0.5rem 0.8rem; border-radius: 8px; cursor: pointer; }
+.danger { background: linear-gradient(180deg, #ff4d6d, #ff2a4a); color: rgb(0, 0, 0); border: none; padding: 0.5rem 0.8rem; border-radius: 8px; cursor: pointer; }
 .danger:hover { opacity: 0.95; }
+
+.toolbar select {
+  background: #000 !important;                     
+  color: #ff4d6d !important;                       
+  border: 1px solid rgba(255, 77, 109, 0.4) !important;
+  padding: 0.45rem;
+  border-radius: 8px;
+  font-weight: 600;
+  outline: none;
+  cursor: pointer;
+}
+
+
+.toolbar select option {
+  background: #000 !important;
+  color: #ff4d6d !important;
+}
 

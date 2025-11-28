@@ -19,15 +19,15 @@
 
     <div class="quests-columns">
       <div class="quests-column">
-        <h3>Priradene (nedokoncené)</h3>
-        <div *ngIf="assignedQuests.length === 0" class="empty">Ziadne priradene questy</div>
+        <h3>Nedokoncene</h3>
+        <div *ngIf="assignedQuests.length === 0" class="empty">ziadne priradene questy</div>
         <div *ngFor="let q of assignedQuests">
           <app-player-quest-item [quest]="q" actionLabel="Dokončený" (action)="markComplete($event)"></app-player-quest-item>
         </div>
       </div>
       <div class="quests-column">
         <h3>Dokoncene</h3>
-        <div *ngIf="completedQuests.length === 0" class="empty">Ziadne dokoncene questy</div>
+        <div *ngIf="completedQuests.length === 0" class="empty">ziadne dokoncene questy</div>
         <div *ngFor="let q of completedQuests">
           <app-player-quest-item [quest]="q" actionLabel="Nedokončený" (action)="markIncomplete($event)"></app-player-quest-item>
         </div>
