@@ -1,0 +1,21 @@
+<div class="profile-container">
+  <div class="profile-card">
+    <h2>Môj profil</h2>
+    
+    <div class="profile-info" *ngIf="user()">
+      <div class="info-group">
+        <label>Email:</label>
+        <p>{{ userEmail() }}</p>
+      </div>
+
+      <div class="info-group">
+        <label>UID:</label>
+        <p>{{ user()?.uid }}</p>
+      </div>
+    </div>
+
+    <button (click)="onLogout()" class="logout-btn">
+      Odhlásiť sa
+    </button>
+  </div>
+</div>

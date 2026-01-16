@@ -100,6 +100,29 @@
   transform: translateY(-3px);
 }
 
+.nav-btn.logout-btn {
+  margin-left: auto;
+  background: linear-gradient(180deg, #d32f2f, #b71c1c);
+  border-color: rgba(211, 47, 47, 0.5);
+}
+
+.nav-btn.logout-btn:hover {
+  box-shadow: 0 0 22px rgba(211, 47, 47, 0.7);
+  background: linear-gradient(180deg, #f44336, #d32f2f);
+}
+
+.nav-btn.profile-btn {
+  background: linear-gradient(180deg, #2196F3, #1976D2);
+  border-color: rgba(33, 150, 243, 0.5);
+}
+
+.nav-btn.profile-btn:hover {
+  box-shadow: 0 0 22px rgba(33, 150, 243, 0.7);
+  background: linear-gradient(180deg, #64B5F6, #2196F3);
+}
+
+
+
 .nav-btn.active {
   background: linear-gradient(180deg,#ff4d6d,#ff2a4a);
   box-shadow: 0 0 28px rgba(255, 77, 109, 0.7), 0 6px 20px rgba(255,77,109,0.12);

@@ -1,41 +1,53 @@
-<div *ngIf="player" class="player-detail panel">
-  <div class="detail-header">
-    <button class="btn btn-outline" (click)="back()">← Späť</button>
-  </div>
-
-  <div class="detail-body">
-    <img *ngIf="player.avatarUrl" [src]="player.avatarUrl" alt="{{ player.nickname }}" class="avatar">
-    <h2 class="center">{{ player.nickname }}</h2>
-    <p class="center">{{ getLevelInfo().current.title }} (Level {{ getLevelInfo().current.level }})</p>
-    <div class="progress detail-progress">
-      <div class="progress-fill" [style.width.%]="getLevelInfo().percent"></div>
+@if (player) {
+  <div class="player-detail panel">
+    <div class="detail-header">
+      <button class="btn btn-outline" (click)="back()">← Späť</button>
     </div>
-
-    <p class="center">
-      Klan:
-      <a *ngIf="player.clanId" [routerLink]="['/clans', player.clanId]">{{ clanName }}</a>
-      <span *ngIf="!player.clanId">—</span>
-    </p>
-
-    <div class="quests-columns">
-      <div class="quests-column">
-        <h3>Nedokoncene</h3>
-        <div *ngIf="assignedQuests.length === 0" class="empty">ziadne priradene questy</div>
-        <div *ngFor="let q of assignedQuests">
-          <app-player-quest-item [quest]="q" actionLabel="Dokončený" (action)="markComplete($event)"></app-player-quest-item>
+    <div class="detail-body">
+      @if (player.avatarUrl) {
+        <img [src]="player.avatarUrl" alt="{{ player.nickname }}" class="avatar">
+      }
+      <h2 class="center">{{ player.nickname }}</h2>
+      <p class="center">{{ getLevelInfo().current.title }} (Level {{ getLevelInfo().current.level }})</p>
+      <div class="progress detail-progress">
+        <div class="progress-fill" [style.width.%]="getLevelInfo().percent"></div>
+      </div>
+      <p class="center">
+        Klan:
+        @if (player.clanId) {
+          <a [routerLink]="['/clans', player.clanId]">{{ clanName }}</a>
+        }
+        @if (!player.clanId) {
+          <span>—</span>
+        }
+      </p>
+      <div class="quests-columns">
+        <div class="quests-column">
+          <h3>Nedokoncene</h3>
+          @if (assignedQuests.length === 0) {
+            <div class="empty">ziadne priradene questy</div>
+          }
+          @for (q of assignedQuests; track q?.id) {
+            <div class="quest-item-wrapper">
+              <app-player-quest-item [quest]="q" actionLabel="Dokončený" (action)="markComplete($event)"></app-player-quest-item>
+            </div>
+          }
+        </div>
+        <div class="quests-column">
+          <h3>Dokoncene</h3>
+          @if (completedQuests.length === 0) {
+            <div class="empty">ziadne dokoncene questy</div>
+          }
+          @for (q of completedQuests; track q?.id) {
+            <div class="quest-item-wrapper">
+              <app-player-quest-item [quest]="q" actionLabel="Nedokončený" (action)="markIncomplete($event)"></app-player-quest-item>
+            </div>
+          }
         </div>
       </div>
-      <div class="quests-column">
-        <h3>Dokoncene</h3>
-        <div *ngIf="completedQuests.length === 0" class="empty">ziadne dokoncene questy</div>
-        <div *ngFor="let q of completedQuests">
-          <app-player-quest-item [quest]="q" actionLabel="Nedokončený" (action)="markIncomplete($event)"></app-player-quest-item>
-        </div>
+      <div class="detail-actions center">
+        <button class="btn danger" (click)="remove()">Odstrániť hráča</button>
       </div>
     </div>
-
-    <div class="detail-actions center">
-      <button class="btn danger" (click)="remove()">Odstrániť hráča</button>
-    </div>
   </div>
-</div>
+}

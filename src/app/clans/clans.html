@@ -6,38 +6,43 @@
       <app-search [(value)]="searchTerm" placeholder="Hľadaj klan..."></app-search>
       <button class="add-btn btn" (click)="toggleForm()">{{ formShown ? 'Zrušiť' : '+ Pridať klan' }}</button>
     </div>
-
-  <div class="add-form" *ngIf="formShown">
-    <label>
-      Názov
-      <input type="text" [(ngModel)]="newName" placeholder="Názov klanu">
-    </label>
-    <label>
-      Popis
-      <input type="text" [(ngModel)]="newDescription" placeholder="Krátky popis">
-    </label>
-    <label>
-      Kapacita
-      <input type="number" [(ngModel)]="newCapacity" min="1">
-    </label>
-    <label>
     
-    </label>
-    <div class="form-actions">
-      <button (click)="submitAddClan()" class="confirm">Vytvoriť klan</button>
-      <button (click)="toggleForm()" class="cancel">Zrušiť</button>
-    </div>
-  </div>
+    @if (formShown) {
+      <form (ngSubmit)="submitAddClan()" class="add-form">
+        <label>
+          Názov
+          <input type="text" [field]="clanForm.name" placeholder="Názov klanu">
+        </label>
+        <label>
+          Popis
+          <input type="text" [field]="clanForm.description" placeholder="Krátky popis">
+        </label>
+        <label>
+          Kapacita
+          <input type="number" [field]="clanForm.capacity">
+        </label>
+        <label>
+        </label>
+        <div class="form-actions">
+          <button type="submit" class="confirm">Vytvoriť klan</button>
+          <button type="button" (click)="toggleForm()" class="cancel">Zrušiť</button>
+        </div>
+      </form>
+    }
 
-  <div *ngFor="let clan of getDisplayedClans()" class="clan-card">
-    <h3><a [routerLink]="['/clans', clan.id]">{{ clan.name }}</a></h3>
-  <p>{{ clan.description }}</p>
-  <p>Kapacita: {{ clan.members.length }}/{{ clan.capacity }}</p>
-  <p>Členovia: {{ clan.members.length }}</p>
-    <img *ngIf="clan.avatarUrl" [src]="clan.avatarUrl" alt="{{ clan.name }}" width="100">
-    <div class="card-actions">
-      <button (click)="removeClan(clan)" class="danger">Odstrániť klan</button>
-    </div>
+    @for (clan of getDisplayedClans(); track clan) {
+      <div class="clan-card">
+        <h3><a [routerLink]="['/clans', clan.id]">{{ clan.name }}</a></h3>
+        <p>{{ clan.description }}</p>
+        <p>Kapacita: {{ clan.members.length }}/{{ clan.capacity }}</p>
+        <p>Členovia: {{ clan.members.length }}</p>
+        @if (clan.avatarUrl) {
+          <img [src]="clan.avatarUrl" alt="{{ clan.name }}" width="100">
+        }
+        <div class="card-actions">
+          <button (click)="removeClan(clan)" class="danger">Odstrániť klan</button>
+        </div>
+      </div>
+    }
   </div>
-    </div>
-  </div>
+</div>

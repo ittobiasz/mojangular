@@ -14,28 +14,34 @@ import { PlayerService } from '../players/player.service';
 export class ClanDetailComponent {
   clan: any;
 
-  constructor(private route: ActivatedRoute, public clanService: ClanService, public playerService: PlayerService, private router: Router) {
+  constructor(private route: ActivatedRoute, public clanService: ClanService, public playerService: PlayerService, private router: Router) {}
+
+  ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.clan = this.clanService.getById(id);
   }
 
-  // odstrani hraca z klanu a nastavi jeho clanId na undefined
   removeMember(playerId: number) {
     if (!this.clan) return;
     this.clanService.removeMember(this.clan.id, playerId);
     this.playerService.setClan(playerId, undefined);
+    this.clan = this.clanService.getById(this.clan.id);
   }
-  // odstrani clan a nastavi clanId na undefined u vsetkych jeho clenov
+
   removeClan() {
     if (!this.clan) return;
     
-    this.playerService.players().forEach(p => {
-      if (p.clanId === this.clan.id) this.playerService.setClan(p.id, undefined);
+    // Odstrániť klan z všetkých hráčov
+    this.playerService.getAll().forEach(p => {
+      if (p.clanId === this.clan.id) {
+        this.playerService.setClan(p.id, undefined);
+      }
     });
+    
     this.clanService.removeClan(this.clan.id);
+    setTimeout(() => this.router.navigate(['/clans']), 300);
   }
 
-  // presmeruje spat na zoznam clanov
   back() {
     this.router.navigate(['/clans']);
   }

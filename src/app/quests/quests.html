@@ -8,17 +8,38 @@
     </div>
 
     <ul>
-      <li *ngFor="let quest of getDisplayedQuests(); let i = index" class="quest-card">
-        <a [routerLink]="['/quests', quest.id]" style="text-decoration:none; color:inherit; display:block;">
-          <h3>{{ i + 1 }}. {{ quest.title }}</h3>
-          <p>{{ quest.description }}</p>
-          <p><strong>XP:</strong> {{ quest.xp }}
-            <span *ngIf="quest.xp > 100" class="badge mega"> - MEGA XP!</span>
-            <span *ngIf="quest.xp > 50 && quest.xp <= 100" class="badge super"> - SUPER XP!</span>
-          </p>
-        </a>
-        <button class="btn small danger" (click)="questsService.deleteQuest(quest.id)">×</button>
-      </li>
+      @for (quest of getDisplayedQuests(); track quest; let i = $index) {
+        <li class="quest-card">
+          <a [routerLink]="['/quests', quest.id]" style="text-decoration:none; color:inherit; display:block;">
+            <h3>{{ i + 1 }}. {{ quest.title }}</h3>
+            <p>{{ quest.description }}</p>
+            <p>
+              <strong>XP:</strong> {{ quest.xp }}
+              @if (quest.xp > 100) {
+                <span class="badge mega"> - MEGA XP!</span>
+              }
+              @if (quest.xp > 50 && quest.xp <= 100) {
+                <span class="badge super"> - SUPER XP!</span>
+              }
+            </p>
+            @if (quest.difficulty) {
+              <p>
+                <strong>Obtiažnosť:</strong>
+                @if (quest.difficulty === 'easy') {
+                  <span style="color: #4caf50;">Ľahká</span>
+                }
+                @if (quest.difficulty === 'medium') {
+                  <span style="color: #ff9800;">Stredná</span>
+                }
+                @if (quest.difficulty === 'hard') {
+                  <span style="color: #f44336;">Ťažká</span>
+                }
+              </p>
+            }
+          </a>
+          <button class="btn small danger" (click)="questsService.deleteQuest(quest.id)">×</button>
+        </li>
+      }
     </ul>
   </div>
 </div>

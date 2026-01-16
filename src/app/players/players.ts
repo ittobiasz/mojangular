@@ -48,18 +48,18 @@ export class PlayersComponent {
   selectedQuests: number[] = [];
   selectedClanId?: number;
   newXp = 0;
-  // filtering/search state
+
   searchTerm = '';
   selectedLevelTitle = '';
   availableLevels: PlayerLevel[] = playerLevels;
 
-  // prepne viditelnost formulara pre pridanie hraca
+
   toggleForm() {
     this.formShown = !this.formShown;
     if (!this.formShown) this.resetForm();
   }
 
-  // resetuje polia formulara do default hodnot
+
   resetForm() {
     this.newNickname = '';
     this.newXp = 0;
@@ -67,50 +67,54 @@ export class PlayersComponent {
     this.selectedClanId = undefined;
   }
 
-  // prepinanie vyberu questu (max 2)
+
   toggleQuestSelection(qid: number) {
     const idx = this.selectedQuests.indexOf(qid);
     if (idx > -1) this.selectedQuests.splice(idx, 1);
     else if (this.selectedQuests.length < 5) this.selectedQuests.push(qid);
   }
 
-  // odosle formular, vytvori hraca a pripadne ho prida do clanu
+
   submitAdd() {
     if (!this.newNickname.trim()) return;
     const newPlayer = this.playerService.addPlayer({
       nickname: this.newNickname.trim(),
       xp: this.newXp,
-      quests: this.selectedQuests
+      quests: this.selectedQuests,
+      clanId: this.selectedClanId
     });
     
-    if (this.selectedClanId) {
-      const ok = this.clanService.addMember(this.selectedClanId, newPlayer.id);
-      if (ok) this.playerService.setClan(newPlayer.id, this.selectedClanId);
-    }
     this.resetForm();
     this.formShown = false;
-    this.router.navigate(['/players', newPlayer.id]);
+    // Počkať kým sa hráč vytvorí na serveri pred redirectom
+    setTimeout(() => this.router.navigate(['/players', newPlayer.id]), 500);
   }
 
-  // vrati zoznam hráčov po aplikovaní search a level filtra
+
   getDisplayedPlayers() {
     const term = (this.searchTerm || '').toLowerCase().trim();
     return this.players().filter(p => {
-      // search by nickname
+
       const matchSearch = !term || p.nickname.toLowerCase().includes(term);
-      // level filter (title)
+ 
       const lvl = getLevelForXp(p.xp ?? 0).current;
       const matchLevel = !this.selectedLevelTitle || lvl.title === this.selectedLevelTitle;
       return matchSearch && matchLevel;
     });
   }
 
-  // odstrani hraca volanim service
+  
   removePlayer(player: Player) {
+    // Odstrániť z klanov
+    this.clanService.getAll().forEach(c => {
+      if (c.members.includes(player.id)) {
+        this.clanService.removeMember(c.id, player.id);
+      }
+    });
+    
     this.playerService.removePlayer(player.id);
   }
 
-  // vrati info o levele hraca pre zobrazenie (title a percent do dalsieho levelu)
   getLevelInfo(player: Player) {
     const xp = player.xp ?? 0;
     return getLevelForXp(xp);

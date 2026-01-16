@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-player-quest-item',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [RouterModule],
   template: `
     <div class="quest-item">
       <div class="left">
@@ -13,7 +13,7 @@ import { RouterModule } from '@angular/router';
         <div class="meta">{{ quest?.xp }} XP</div>
       </div>
       <div class="actions">
-        <button class="nav-btn small" (click)="action.emit(quest?.id)">{{ actionLabel }}</button>
+        <button type="button" class="nav-btn small" (click)="action.emit(quest?.id)">{{ actionLabel }}</button>
       </div>
     </div>
   `,

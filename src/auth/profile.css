@@ -1,0 +1,78 @@
+.profile-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 140px);
+  padding: 2rem 1rem;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  background: radial-gradient(1200px 400px at 10% 20%, rgba(255,77,109,0.06), transparent 10%),
+              radial-gradient(900px 300px at 90% 80%, rgba(255,77,109,0.04), transparent 10%),
+              linear-gradient(180deg, #0b0b0c 0%, #151515 100%);
+}
+
+.profile-card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(255,77,109,0.06);
+  border: 1px solid rgba(255,77,109,0.06);
+  padding: 40px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.profile-card h2 {
+  margin-top: 0;
+  margin-bottom: 30px;
+  text-align: center;
+  color: #ffdfe6;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.profile-info {
+  margin-bottom: 30px;
+}
+
+.info-group {
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(255,77,109,0.1);
+}
+
+.info-group label {
+  display: block;
+  font-weight: 600;
+  color: #f5f5f5;
+  margin-bottom: 8px;
+}
+
+.info-group p {
+  margin: 0;
+  color: #ffdfe6;
+  word-break: break-all;
+  font-size: 14px;
+  background: rgba(0,0,0,0.3);
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(255,77,109,0.1);
+}
+
+.logout-btn {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(180deg, #d32f2f, #b71c1c);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 8px 20px rgba(211,47,47,0.2);
+  font-family: 'Be Vietnam Pro', sans-serif;
+}
+
+.logout-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(211,47,47,0.3);
+}

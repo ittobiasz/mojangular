@@ -1,0 +1,45 @@
+<div class="login-container">
+  <div class="login-card">
+    <h2>Prihlásenie</h2>
+    
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input 
+          id="email" 
+          type="email" 
+          formControlName="email" 
+          placeholder="vas@email.sk"
+          class="form-input"
+        />
+        <div class="error" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+          Zadajte platný email.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Heslo</label>
+        <input 
+          id="password" 
+          type="password" 
+          formControlName="password" 
+          placeholder="Zadajte heslo"
+          class="form-input"
+        />
+        <div class="error" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+          Zadajte heslo.
+        </div>
+      </div>
+
+      <div class="error" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+      <button type="submit" class="login-btn" [disabled]="loading">
+        {{ loading ? 'Prihlasovanie...' : 'Prihlásiť sa' }}
+      </button>
+    </form>
+
+    <div class="auth-link">
+      <p>Nemáte ešte účet? <a routerLink="/register">Zaregistrujte sa</a></p>
+    </div>
+  </div>
+</div>

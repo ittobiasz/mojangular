@@ -1,0 +1,62 @@
+<div class="login-container">
+  <div class="login-card">
+    <h2>Registrácia</h2>
+    
+    <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input 
+          id="email" 
+          type="email" 
+          formControlName="email" 
+          placeholder="vas@email.sk"
+          class="form-input"
+        />
+        <div class="error" *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+          Zadajte platný email.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Heslo</label>
+        <input 
+          id="password" 
+          type="password" 
+          formControlName="password" 
+          placeholder="Aspoň 6 znakov"
+          class="form-input"
+        />
+        <div class="error" *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+          Heslo musí mať aspoň 6 znakov.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Potvrďte heslo</label>
+        <input 
+          id="confirmPassword" 
+          type="password" 
+          formControlName="confirmPassword" 
+          placeholder="Zopakujte heslo"
+          class="form-input"
+        />
+        <div class="error" *ngIf="registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched">
+          Zadajte heslo.
+        </div>
+        <div class="error" *ngIf="registerForm.hasError('passwordMismatch') && registerForm.get('confirmPassword')?.touched">
+          Heslá sa nezhodujú.
+        </div>
+      </div>
+
+      <div class="error" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+      <button type="submit" class="login-btn" [disabled]="loading">
+        {{ loading ? 'Registrácia...' : 'Zaregistrovať sa' }}
+      </button>
+    </form>
+
+    <div class="auth-link">
+      <p>Máte už účet? <a routerLink="/login">Prihláste sa</a></p>
+    </div>
+  </div>
+</div>

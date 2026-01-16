@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, signal } from '@angular/core';
+
 import { Router } from '@angular/router';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { form, Field } from '@angular/forms/signals';
+import { CommonModule } from '@angular/common';
 import { ClanService } from './clan.service';
 import { Clan } from './clan-interface';
 import { PlayerService } from '../players/player.service';
@@ -11,7 +13,7 @@ import { SearchComponent } from '../shared/search.component';
 @Component({
   selector: 'app-clans',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule, SearchComponent], 
+  imports: [CommonModule, RouterModule, FormsModule, SearchComponent, Field], 
   templateUrl: './clans.html',
   styleUrls: ['./clans.css']
 })
@@ -20,10 +22,13 @@ export class ClansComponent {
   searchTerm = '';
   
   formShown = false;
-  newName = '';
-  newDescription = '';
-  newCapacity = 5;
   
+  clanFormModel = signal({
+    name: '',
+    description: '',
+    capacity: 5
+  });
+  clanForm = form(this.clanFormModel);
 
   constructor(private clanService: ClanService, private router: Router, private playerService: PlayerService) {}
 
@@ -40,19 +45,21 @@ export class ClansComponent {
 
   // resetuje polia formulara do default hodnot
   resetForm() {
-    this.newName = '';
-    this.newDescription = '';
-    this.newCapacity = 5;
-    
+    this.clanFormModel.set({
+      name: '',
+      description: '',
+      capacity: 5
+    });
   }
 
   // prida novy klan a presmeruje na jeho detail
   submitAddClan() {
-    if (!this.newName.trim()) return;
+    const nameValue = this.clanForm.name().value();
+    if (!nameValue.trim()) return;
     const newClan = this.clanService.addClan({
-      name: this.newName.trim(),
-      description: this.newDescription,
-      capacity: this.newCapacity
+      name: nameValue.trim(),
+      description: this.clanForm.description().value(),
+      capacity: this.clanForm.capacity().value()
     });
     this.resetForm();
     this.formShown = false;
@@ -60,9 +67,10 @@ export class ClansComponent {
   }
   // odstrani klan a nastavi clanId na undefined u jeho clenov
   removeClan(clan: Clan) {
-    
-    this.playerService.players().forEach(p => {
-      if (p.clanId === clan.id) this.playerService.setClan(p.id, undefined);
+    this.playerService.getAll().forEach(p => {
+      if (p.clanId === clan.id) {
+        this.playerService.setClan(p.id, undefined);
+      }
     });
     this.clanService.removeClan(clan.id);
   }

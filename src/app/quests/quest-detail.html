@@ -1,17 +1,20 @@
-<div *ngIf="quest; else notFound" class="quest-detail panel">
-  <div class="detail-header">
-    <button class="btn btn-outline" (click)="back()">← Späť</button>
+@if (quest) {
+  <div class="quest-detail panel">
+    <div class="detail-header">
+      <button class="btn btn-outline" (click)="back()">← Späť</button>
+    </div>
+    <div class="detail-body">
+      <h2>{{ quest.title }}</h2>
+      @if (quest.imageUrl) {
+        <img [src]="quest.imageUrl" alt="{{ quest.title }}" class="quest-image">
+      }
+      <p>{{ quest.description }}</p>
+      <p><strong>XP:</strong> {{ quest.xp }}</p>
+      @if (quest.difficulty) {
+        <p><strong>Difficulty:</strong> {{ quest.difficulty }}</p>
+      }
+    </div>
   </div>
-
-  <div class="detail-body">
-    <h2>{{ quest.title }}</h2>
-    <img *ngIf="quest.imageUrl" [src]="quest.imageUrl" alt="{{ quest.title }}" class="quest-image">
-    <p>{{ quest.description }}</p>
-    <p><strong>XP:</strong> {{ quest.xp }}</p>
-    <p *ngIf="quest.difficulty"><strong>Difficulty:</strong> {{ quest.difficulty }}</p>
-  </div>
-</div>
-
-<ng-template #notFound>
+} @else {
   <p>Quest sa nenašiel.</p>
-</ng-template>
+}

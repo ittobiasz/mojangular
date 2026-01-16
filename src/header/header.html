@@ -3,9 +3,19 @@
 
 <nav class="nav-bar">
   <button routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="nav-btn">Domov</button>
-  <button routerLink="/quests" routerLinkActive="active" class="nav-btn">Questy</button>
-  <button routerLink="/players" routerLinkActive="active" class="nav-btn">Hráči</button>
-  <button routerLink="/clans" routerLinkActive="active" class="nav-btn">Klany</button>
+  
+  <ng-container *ngIf="isAuthenticated()">
+    <button routerLink="/quests" routerLinkActive="active" class="nav-btn">Questy</button>
+    <button routerLink="/players" routerLinkActive="active" class="nav-btn">Hráči</button>
+    <button routerLink="/clans" routerLinkActive="active" class="nav-btn">Klany</button>
+    <button routerLink="/profile" routerLinkActive="active" class="nav-btn profile-btn">Profil</button>
+    <button (click)="onLogout()" class="nav-btn logout-btn">Odhlásiť</button>
+  </ng-container>
+  
+  <ng-container *ngIf="!isAuthenticated()">
+    <button routerLink="/login" routerLinkActive="active" class="nav-btn">Prihlásenie</button>
+    <button routerLink="/register" routerLinkActive="active" class="nav-btn">Registrácia</button>
+  </ng-container>
 </nav>
 
 </header>
