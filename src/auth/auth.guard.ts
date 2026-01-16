@@ -1,12 +1,12 @@
 import { inject } from '@angular/core';
-import { CanActivateFn, Router } from '@angular/router';
+import { CanActivateFn, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { AuthService } from './auth.service';
 
-export const authGuard: CanActivateFn = async (route, state) => {
+export const authGuard: CanActivateFn = async (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
-  // Wait for authentication state to be determined
+
   const user = await authService.waitForAuthState();
 
   if (user) {
